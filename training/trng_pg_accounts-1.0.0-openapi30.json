@@ -10,6 +10,9 @@
     "version" : "1.0.0"
   },
   "servers" : [ {
+    "url" : "https://9gc3mq.eu.api-mocks.com",
+    "description" : "This is your API mock endpoint. When called, it will simulate the behavior of your API."
+  }, {
     "url" : "https://baseurl-example.com",
     "description" : "Endpoint of the API"
   } ],
