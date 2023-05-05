@@ -136,6 +136,104 @@
             }
           }
         }
+      },
+      "put" : {
+        "summary" : "Update Customers",
+        "description" : "This path should be used to update customer data. \nSeveral customers can be updated at a time",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "email" : {
+                      "type" : "string"
+                    },
+                    "phone" : {
+                      "type" : "string"
+                    },
+                    "mobile" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Clients have been updated"
+          },
+          "401" : {
+            "description" : "Status 401"
+          },
+          "500" : {
+            "description" : "Status 500"
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Create Customers",
+        "description" : "This operation should be used to create customers. \nCAREFUL : Only 1 customer can be created at a time",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "required" : [ "email", "name", "vat" ],
+                "properties" : {
+                  "name" : {
+                    "type" : "string"
+                  },
+                  "vat" : {
+                    "type" : "string"
+                  },
+                  "email" : {
+                    "type" : "string"
+                  },
+                  "phone" : {
+                    "type" : "string"
+                  },
+                  "mobile" : {
+                    "type" : "string"
+                  },
+                  "street" : {
+                    "type" : "string"
+                  },
+                  "city" : {
+                    "type" : "string"
+                  },
+                  "postalCode" : {
+                    "type" : "string"
+                  },
+                  "countryCode" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Customer created"
+          },
+          "204" : {
+            "description" : "Empty body"
+          },
+          "401" : {
+            "description" : "Authentication missing or wrong"
+          },
+          "500" : {
+            "description" : "Status 500"
+          }
+        }
       }
     },
     "/healthCheck" : {
