@@ -1,0 +1,234 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "TRNG_PG_Accounts",
+    "description" : "This API will retrieve Account information from a local PostGresQL database",
+    "contact" : {
+      "name" : "Cedric Mathis",
+      "email" : "cedric.mathis@up-crm.com"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://baseurl-example.com",
+    "description" : "Endpoint of the API"
+  } ],
+  "security" : [ {
+    "KeyAuth" : [ ]
+  } ],
+  "paths" : {
+    "/customers" : {
+      "summary" : "Operations to perform on customers",
+      "get" : {
+        "summary" : "Get Customers",
+        "parameters" : [ {
+          "name" : "Content-Type",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Customer"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "required" : [ "code", "error" ],
+                  "properties" : {
+                    "code" : {
+                      "type" : "integer",
+                      "description" : "400"
+                    },
+                    "error" : {
+                      "type" : "string",
+                      "description" : "Wrong call"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Status 401",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "required" : [ "code", "error" ],
+                  "properties" : {
+                    "code" : {
+                      "type" : "integer",
+                      "description" : "401"
+                    },
+                    "error" : {
+                      "type" : "string",
+                      "description" : "You are not authorized to access this resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Status 404",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "required" : [ "code", "error" ],
+                  "properties" : {
+                    "code" : {
+                      "type" : "integer",
+                      "description" : "404"
+                    },
+                    "error" : {
+                      "type" : "string",
+                      "description" : "Could not find the requested resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Status 500",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "required" : [ "code", "error" ],
+                  "properties" : {
+                    "code" : {
+                      "type" : "integer",
+                      "description" : "HTTP returned code",
+                      "example" : 500
+                    },
+                    "error" : {
+                      "type" : "string",
+                      "description" : "Error returned",
+                      "example" : "Could not execute the request"
+                    },
+                    "stackTrace" : {
+                      "type" : "string",
+                      "description" : "stackTrace of the error",
+                      "example" : "Caused by: java....."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/healthCheck" : {
+      "summary" : "Health check",
+      "description" : "Health check of the API",
+      "get" : {
+        "summary" : "Get health",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "required" : [ "message" ],
+                  "properties" : {
+                    "message" : {
+                      "type" : "string",
+                      "example" : "API is alive and well. Thanks for asking"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "required" : [ "code", "errorMessage" ],
+                  "properties" : {
+                    "code" : {
+                      "type" : "integer",
+                      "example" : 400
+                    },
+                    "errorMessage" : {
+                      "type" : "string",
+                      "example" : "Wrong call"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Customer" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "type" : "string"
+            },
+            "type" : {
+              "type" : "string"
+            },
+            "street" : {
+              "type" : "string"
+            },
+            "city" : {
+              "type" : "string"
+            },
+            "postalCode" : {
+              "type" : "string"
+            },
+            "countryCode" : {
+              "type" : "string"
+            },
+            "phone" : {
+              "type" : "string"
+            },
+            "website" : {
+              "type" : "string"
+            },
+            "vat" : {
+              "type" : "string"
+            }
+          }
+        },
+        "example" : "[\r\n    {\r\n        \"name\": \"ClientName\",\r\n        \"type\": \"Customer\",\r\n        \"street\": \"1 rue Principale\",\r\n        \"city\": \"Luxembourg\",\r\n        \"postalCode\": \"L-1818\",\r\n        \"countryCode\": \"LU\",\r\n        \"phone\": \"(+352) 661 000 000\",\r\n        \"website\": \"https://www.example.com\",\r\n        \"vat\": \"LU12345678\"\r\n    },\r\n    {\r\n        \"name\": \"ClientName 2\",\r\n        \"type\": \"Customer\",\r\n        \"street\": \"2 rue Principale\",\r\n        \"city\": \"Luxembourg\",\r\n        \"postalCode\": \"L-1818\",\r\n        \"countryCode\": \"LU\",\r\n        \"phone\": \"(+352) 661 000 001\",\r\n        \"website\": \"https://www.example.com\",\r\n        \"vat\": \"LU12345679\"\r\n    }\r\n]"
+      }
+    },
+    "securitySchemes" : {
+      "KeyAuth" : {
+        "type" : "apiKey",
+        "description" : "Authentication thanks to an API Key",
+        "in" : "header",
+        "name" : "X-Authentication-Key"
+      }
+    }
+  }
+}
